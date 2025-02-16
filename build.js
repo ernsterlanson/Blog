@@ -1,45 +1,53 @@
 const fs = require('fs-extra');
-const path = require('path');
 const marked = require('marked');
 const frontMatter = require('front-matter');
 
-// Ensure build directory exists
-fs.ensureDirSync('dist');
+// Create necessary directories
+const dirs = ['dist', 'src/content/blog', 'src/content/pages'];
+dirs.forEach(dir => fs.ensureDirSync(dir));
 
 // Copy static assets
-fs.copySync('static', 'dist/static');
+fs.copySync('src/static', 'dist/static');
 
-// Read template
-const template = fs.readFileSync('src/templates/main.html', 'utf-8');
+// Read base template
+const baseTemplate = fs.readFileSync('src/templates/main.html', 'utf-8');
+
+// Helper function to replace template variables
+function applyTemplate(template, data) {
+    return template
+        .replace('{{title}}', data.title || 'My Site')
+        .replace('{{content}}', data.content);
+}
 
 // Process markdown files
 function processMarkdown(filePath) {
     const content = fs.readFileSync(filePath, 'utf-8');
     const { attributes, body } = frontMatter(content);
-    const html = marked.parse(body);
-    
-    return template
-        .replace('{{title}}', attributes.title || 'My Site')
-        .replace('{{content}}', html);
+    return {
+        ...attributes,
+        content: marked.parse(body)
+    };
 }
 
-// Build pages
-const pagesDir = 'src/content/pages';
-fs.readdirSync(pagesDir).forEach(file => {
-    if (file.endsWith('.md')) {
-        const html = processMarkdown(path.join(pagesDir, file));
-        const outFile = path.join('dist', file.replace('.md', '.html'));
-        fs.writeFileSync(outFile, html);
-    }
-});
+// Process blog posts
+const postsDir = 'src/content/blog';
+const posts = fs.readdirSync(postsDir)
+    .filter(file => file.endsWith('.md'))
+    .map(file => {
+        const data = processMarkdown(`${postsDir}/${file}`);
+        const html = applyTemplate(baseTemplate, data);
+        const outputPath = `dist/blog/${file.replace('.md', '.html')}`;
+        fs.outputFileSync(outputPath, html);
+        return { ...data, url: `/blog/${file.replace('.md', '.html')}` };
+    });
 
-// Build blog posts
-const postsDir = 'content/blog';
-fs.ensureDirSync('dist/blog');
-fs.readdirSync(postsDir).forEach(file => {
-    if (file.endsWith('.md')) {
-        const html = processMarkdown(path.join(postsDir, file));
-        const outFile = path.join('dist/blog', file.replace('.md', '.html'));
-        fs.writeFileSync(outFile, html);
-    }
-}); 
+// Process pages
+const pagesDir = 'src/content/pages';
+fs.readdirSync(pagesDir)
+    .filter(file => file.endsWith('.md'))
+    .forEach(file => {
+        const data = processMarkdown(`${pagesDir}/${file}`);
+        const html = applyTemplate(baseTemplate, data);
+        const outputPath = `dist/${file.replace('.md', '.html')}`;
+        fs.outputFileSync(outputPath, html);
+    }); 
