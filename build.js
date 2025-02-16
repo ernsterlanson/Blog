@@ -10,7 +10,7 @@ fs.ensureDirSync('dist');
 fs.copySync('static', 'dist/static');
 
 // Read template
-const template = fs.readFileSync('templates/main.html', 'utf-8');
+const template = fs.readFileSync('src/templates/main.html', 'utf-8');
 
 // Process markdown files
 function processMarkdown(filePath) {
@@ -24,7 +24,7 @@ function processMarkdown(filePath) {
 }
 
 // Build pages
-const pagesDir = 'content/pages';
+const pagesDir = 'src/content/pages';
 fs.readdirSync(pagesDir).forEach(file => {
     if (file.endsWith('.md')) {
         const html = processMarkdown(path.join(pagesDir, file));
