@@ -2,13 +2,22 @@ const fs = require('fs-extra');
 const marked = require('marked');
 const frontMatter = require('front-matter');
 const handlebars = require('handlebars');
+const path = require('path');
 
 // Create necessary directories
-const dirs = ['dist', 'dist/blog', 'src/content/blog', 'src/content/pages'];
+const dirs = ['dist', 'dist/blog', 'src/content/blog', 'src/content/pages', 'src/templates/partials'];
 dirs.forEach(dir => fs.ensureDirSync(dir));
 
 // Copy static assets
 fs.copySync('src/static', 'dist/static');
+
+// Register partials
+const partialsDir = 'src/templates/partials';
+fs.readdirSync(partialsDir).forEach(file => {
+    const partialName = path.basename(file, '.html');
+    const partialContent = fs.readFileSync(path.join(partialsDir, file), 'utf-8');
+    handlebars.registerPartial(partialName, partialContent);
+});
 
 // Read templates
 const baseTemplate = fs.readFileSync('src/templates/main.html', 'utf-8');

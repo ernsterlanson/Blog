@@ -3,21 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name</title>
+    <title>Ernst Erlanson</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="nav-content">
-            
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/blog">Blog</a>
-                <a href="/about.html">About</a>
-                <a href="/contact.html">Contact</a>
-            </div>
-        </div>
-    </nav>
+    {{> nav}}
 
     <main class="content">
         <h1>Ernst Erlanson</h1>
@@ -52,11 +42,7 @@
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 Ernst Erlanson. All rights reserved.</p>
-        </div>
-    </footer>
+    {{> footer}}
 
     <script src="/static/js/main.js"></script>
 </body>

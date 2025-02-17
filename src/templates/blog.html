@@ -7,25 +7,15 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="nav-content">
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/blog">Blog</a>
-                <a href="/about.html">About</a>
-                <a href="/faq.html">FAQ</a>
-            </div>
-        </div>
-    </nav>
+    {{> nav}}
 
     <main class="content blog-post">
         <article>
             <header class="post-header">
-                <h1>{{title}}</h1>
                 <div class="post-meta">
                     <time datetime="{{date}}">{{formatDate date}}</time>
-                    {{#if author}}<span class="author">By {{author}}</span>{{/if}}
                 </div>
+                <h1>{{title}}</h1>
             </header>
             <div class="post-content">
                 {{{content}}}
@@ -33,11 +23,7 @@
         </article>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 Ernst Erlanson. All rights reserved.</p>
-        </div>
-    </footer>
+    {{> footer}}
 
     <script src="/static/js/main.js"></script>
 </body>
