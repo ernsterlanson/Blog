@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+    <nav class="main-nav">
+        <div class="nav-content">
+            
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/blog">Blog</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
     <main class="content">
         <h1>Ernst Erlanson</h1>
 
@@ -20,12 +32,32 @@
         <h2>Contact me</h2>
         <p>If you need a pianist, teacher or composer contact me <a href="/contact.html">here</a>. Also if you just want to say <a href="/contact.html"> hello</a>.</p>
 
-        <h2>Latest Writing</h2>
-        <ul>
-            <li><a href="/blog/getting-started.html">Getting Started with Web Development</a></li>
-            <li><a href="/blog/simplicity.html">Why Simple is Better</a></li>
-            <li><a href="/blog/static-sites.html">Building Static Sites</a></li>
-        </ul>
+        <section class="latest-posts">
+            <h2>Latest Blog Posts</h2>
+            <div class="post-previews">
+                {{#each recentPosts}}
+                <article class="post-preview">
+                    <h3><a href="{{url}}">{{title}}</a></h3>
+                    <div class="post-meta">
+                        <time datetime="{{date}}">{{formatDate date}}</time>
+                        {{#if author}}<span class="author">By {{author}}</span>{{/if}}
+                    </div>
+                    {{#if excerpt}}<p class="excerpt">{{excerpt}}</p>{{/if}}
+                </article>
+                {{/each}}
+            </div>
+            <div class="view-all">
+                <a href="/blog" class="read-more">View all posts →</a>
+            </div>
+        </section>
     </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Ernst Erlanson. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
 </body>
 </html> 
