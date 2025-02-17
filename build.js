@@ -9,6 +9,9 @@ dirs.forEach(dir => fs.ensureDirSync(dir));
 // Copy static assets
 fs.copySync('src/static', 'dist/static');
 
+// Copy standalone index.html
+fs.copySync('src/index.html', 'dist/index.html');
+
 // Read base template
 const baseTemplate = fs.readFileSync('src/templates/main.html', 'utf-8');
 
@@ -41,10 +44,10 @@ const posts = fs.readdirSync(postsDir)
         return { ...data, url: `/blog/${file.replace('.md', '.html')}` };
     });
 
-// Process pages
+// Process pages (excluding index.md since we have a standalone index.html)
 const pagesDir = 'src/content/pages';
 fs.readdirSync(pagesDir)
-    .filter(file => file.endsWith('.md'))
+    .filter(file => file.endsWith('.md') && file !== 'index.md')
     .forEach(file => {
         const data = processMarkdown(`${pagesDir}/${file}`);
         const html = applyTemplate(baseTemplate, data);
