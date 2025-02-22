@@ -4,6 +4,13 @@ const frontMatter = require('front-matter');
 const handlebars = require('handlebars');
 const path = require('path');
 
+// Configure marked to allow HTML
+marked.setOptions({
+    headerIds: false,
+    mangle: false,
+    html: true  // This allows HTML in markdown
+});
+
 // Create necessary directories
 const dirs = ['dist', 'dist/blog', 'src/content/blog', 'src/content/pages', 'src/templates/partials'];
 dirs.forEach(dir => fs.ensureDirSync(dir));
@@ -24,6 +31,7 @@ const baseTemplate = fs.readFileSync('src/templates/main.html', 'utf-8');
 const blogTemplate = fs.readFileSync('src/templates/blog.html', 'utf-8');
 const blogIndexTemplate = fs.readFileSync('src/templates/blog-index.html', 'utf-8');
 const indexTemplate = fs.readFileSync('src/index.html', 'utf-8');
+const contactTemplate = fs.readFileSync('src/templates/contact.html', 'utf-8');
 
 // Register handlebars helpers
 handlebars.registerHelper('formatDate', function(date) {
@@ -39,6 +47,7 @@ const compiledBaseTemplate = handlebars.compile(baseTemplate);
 const compiledBlogTemplate = handlebars.compile(blogTemplate);
 const compiledBlogIndexTemplate = handlebars.compile(blogIndexTemplate);
 const compiledIndexTemplate = handlebars.compile(indexTemplate);
+const compiledContactTemplate = handlebars.compile(contactTemplate);
 
 // Helper function to replace template variables
 function applyTemplate(template, data) {
@@ -98,7 +107,8 @@ fs.readdirSync(pagesDir)
     .filter(file => file.endsWith('.md') && file !== 'index.md')
     .forEach(file => {
         const data = processMarkdown(`${pagesDir}/${file}`);
-        const html = applyTemplate(compiledBaseTemplate, data);
+        const template = data.template === 'contact.html' ? compiledContactTemplate : compiledBaseTemplate;
+        const html = applyTemplate(template, data);
         const outputPath = `dist/${file.replace('.md', '.html')}`;
         fs.outputFileSync(outputPath, html);
     }); 
