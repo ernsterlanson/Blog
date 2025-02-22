@@ -3,6 +3,12 @@
     <div style="max-width: 500px; margin: 0 auto;">
         <h3 style="margin-bottom: 1rem; color: #333; text-align: center;">Subscribe to the Newsletter</h3>
         <p style="margin-bottom: 1.5rem; color: #666; text-align: center;">Get the latest updates directly in your inbox.</p>
+        
+        <!-- Add this success message div -->
+        <div id="success-message" style="display: none; color: green; text-align: center; margin-bottom: 1rem;">
+            Thanks for subscribing! Please check your email to confirm your subscription.
+        </div>
+
         <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
         <form action="https://app.kit.com/forms/7694916/subscriptions" 
               class="seva-form formkit-form" 
@@ -10,7 +16,8 @@
               data-sv-form="7694916" 
               data-uid="5ac6b9c2d3" 
               data-format="inline" 
-              data-version="5">
+              data-version="5"
+              data-success="showSuccessMessage">
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                 <input type="email" 
                        name="email_address" 
