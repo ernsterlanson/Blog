@@ -32,6 +32,7 @@ const blogTemplate = fs.readFileSync('src/templates/blog.html', 'utf-8');
 const blogIndexTemplate = fs.readFileSync('src/templates/blog-index.html', 'utf-8');
 const indexTemplate = fs.readFileSync('src/index.html', 'utf-8');
 const contactTemplate = fs.readFileSync('src/templates/contact.html', 'utf-8');
+const aboutTemplate = fs.readFileSync('src/templates/about.html', 'utf-8');
 
 // Register handlebars helpers
 handlebars.registerHelper('formatDate', function(date) {
@@ -48,6 +49,7 @@ const compiledBlogTemplate = handlebars.compile(blogTemplate);
 const compiledBlogIndexTemplate = handlebars.compile(blogIndexTemplate);
 const compiledIndexTemplate = handlebars.compile(indexTemplate);
 const compiledContactTemplate = handlebars.compile(contactTemplate);
+const compiledAboutTemplate = handlebars.compile(aboutTemplate);
 
 // Helper function to replace template variables
 function applyTemplate(template, data) {
@@ -107,7 +109,9 @@ fs.readdirSync(pagesDir)
     .filter(file => file.endsWith('.md') && file !== 'index.md')
     .forEach(file => {
         const data = processMarkdown(`${pagesDir}/${file}`);
-        const template = data.template === 'contact.html' ? compiledContactTemplate : compiledBaseTemplate;
+        const template = data.template === 'contact.html' ? compiledContactTemplate : 
+                        data.template === 'about.html' ? compiledAboutTemplate :
+                        compiledBaseTemplate;
         const html = applyTemplate(template, data);
         const outputPath = `dist/${file.replace('.md', '.html')}`;
         fs.outputFileSync(outputPath, html);

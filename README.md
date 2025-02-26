@@ -71,7 +71,7 @@ date: YYYY-MM-DD
 1. ✅ Simple landing page
 2. ✅ Blog post template
 3. ✅ Markdown to HTML converter
-4. 🔄 Ghost newsletter integration (coming soon)
+4. ✅ convertkit form 
 5. 🔄 Contact form (coming soon)
 
 ## Technologies Used
