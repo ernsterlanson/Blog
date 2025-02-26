@@ -318,4 +318,28 @@ footer {
     .contact-form-container {
         padding: 1rem;
     }
+}
+
+/* Specific sizing for music notation */
+.post-content img {
+    width: 800px;  /* fixed width to match your example */
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+}
+
+/* Responsive handling for smaller screens */
+@media (max-width: 840px) {  /* 800px + some padding */
+    .post-content img {
+        width: 100%;
+        min-width: 300px;
+    }
+}
+
+/* Specific styling for music notation images */
+.post-content img[src*="Screenshot"] {
+    max-width: 800px;  /* or whatever width works best for your notation */
+    width: 100%;
+    margin: 2rem auto;
+    display: block;
 } 
