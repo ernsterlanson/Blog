@@ -22,25 +22,6 @@
         <h2>Contact me</h2>
         <p>If you need a pianist, teacher or composer contact me <a href="/contact.html">here</a>. Also if you just want to say <a href="/contact.html"> hello</a>.</p>
 
-        <section class="latest-posts">
-            <h2>Latest Blog Posts</h2>
-            <div class="post-previews">
-                {{#each recentPosts}}
-                <article class="post-preview">
-                    <h3><a href="{{url}}">{{title}}</a></h3>
-                    <div class="post-meta">
-                        <time datetime="{{date}}">{{formatDate date}}</time>
-                        {{#if author}}<span class="author">By {{author}}</span>{{/if}}
-                    </div>
-                    {{#if excerpt}}<p class="excerpt">{{excerpt}}</p>{{/if}}
-                </article>
-                {{/each}}
-            </div>
-            <div class="view-all">
-                <a href="/blog" class="read-more">View all posts →</a>
-            </div>
-        </section>
-
         {{> convertkit-form}}
     </main>
 
