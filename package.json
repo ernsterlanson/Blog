@@ -5,7 +5,8 @@
   "main": "build.js",
   "scripts": {
     "build": "node build.js",
-    "serve": "node serve.js"
+    "serve": "node serve.js",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "cheerio": "^1.0.0",
@@ -17,5 +18,8 @@
     "node-fetch": "^2.7.0",
     "slugify": "^1.6.6",
     "turndown": "^7.2.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
