@@ -13,7 +13,7 @@ I live in Sweden.
 
 ## Contact me
 
-If you need a pianist, teacher or composer contact me [here](/contact.html). Also if you just want to say [hello](/contact.html).
+If you need a pianist, teacher or composer contact me [here](/Blog/contact.html). Also if you just want to say [hello](/Blog/contact.html).
 
 <div class="latest-posts">
     <h2>Latest Blog Posts</h2>
@@ -30,6 +30,6 @@ If you need a pianist, teacher or composer contact me [here](/contact.html). Als
         {{/each}}
     </div>
     <div class="view-all">
-        <a href="/blog" class="read-more">View all posts →</a>
+        <a href="/Blog/blog" class="read-more">View all posts →</a>
     </div>
 </div> 

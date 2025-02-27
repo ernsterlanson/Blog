@@ -3,13 +3,13 @@ const app = express();
 const port = 3000;
 
 // Serve static files from the dist directory
-app.use(express.static('dist'));
+app.use('/Blog', express.static('dist'));
 
-// Serve index.html for the root path
+// Redirect root to /Blog/
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/dist/index.html');
+    res.redirect('/Blog/');
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}/Blog/`);
 }); 
