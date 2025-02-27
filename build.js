@@ -30,7 +30,7 @@ fs.readdirSync(partialsDir).forEach(file => {
 const baseTemplate = fs.readFileSync('src/templates/main.html', 'utf-8');
 const blogTemplate = fs.readFileSync('src/templates/blog.html', 'utf-8');
 const blogIndexTemplate = fs.readFileSync('src/templates/blog-index.html', 'utf-8');
-const indexTemplate = fs.readFileSync('src/index.html', 'utf-8');
+const indexTemplate = fs.readFileSync('src/templates/index.html', 'utf-8');
 const contactTemplate = fs.readFileSync('src/templates/contact.html', 'utf-8');
 const aboutTemplate = fs.readFileSync('src/templates/about.html', 'utf-8');
 
@@ -98,12 +98,16 @@ const posts = fs.readdirSync(postsDir)
 const blogIndexHtml = applyTemplate(compiledBlogIndexTemplate, { posts });
 fs.outputFileSync('dist/blog/index.html', blogIndexHtml);
 
-// Generate main index with recent posts
+// Process index page
+const indexData = processMarkdown('src/content/pages/index.md');
 const recentPosts = posts.slice(0, 3); // Get 3 most recent posts
-const indexHtml = applyTemplate(compiledIndexTemplate, { recentPosts });
+const indexHtml = applyTemplate(compiledIndexTemplate, { 
+    ...indexData,
+    recentPosts 
+});
 fs.outputFileSync('dist/index.html', indexHtml);
 
-// Process pages
+// Process other pages
 const pagesDir = 'src/content/pages';
 fs.readdirSync(pagesDir)
     .filter(file => file.endsWith('.md') && file !== 'index.md')
