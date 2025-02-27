@@ -88,7 +88,7 @@ const posts = fs.readdirSync(postsDir)
         fs.outputFileSync(outputPath, html);
         return {
             ...data,
-            url: `/blog/${file.replace('.md', '.html')}`,
+            url: `/Blog/blog/${file.replace('.md', '.html')}`,
             date: data.date ? new Date(data.date).toISOString().split('T')[0] : null
         };
     })
